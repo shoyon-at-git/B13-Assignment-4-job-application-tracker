@@ -36,6 +36,25 @@
         </div>
     </header>
 
-    
+    <div class="w-[1110px] h-[1px] mx-auto bg-gray-200"></div>
+
+    <main id="main" class="max-w-[1110px] mx-auto mt-[30px] space-y-5">
+        <div class="mb-4 flex justify-between">
+            <h2 class="text-xl font-bold">Available Jobs</h2>
+            <p id="filtered-job-count" class=" text-sm text-gray-500">8 jobs</p>
+        </div>
+
+        <div class="space-x-2 mb-4">
+            <button onclick="toggleStyle('all-filter-btn')" id="all-filter-btn" class="w-25 shadow-md rounded-md py-3 px-4 bg-blue-600 text-white font-bold text-sm cursor-pointer">All</button>
+            <button onclick="toggleStyle('interview-filter-btn')" id="interview-filter-btn" class="w-25 shadow-md rounded-md py-3 px-4 bg-white text-gray-600 font-bold text-sm cursor-pointer">Interview</button>
+            <button onclick="toggleStyle('rejected-filter-btn')" id="rejected-filter-btn" class="w-25 shadow-md rounded-md py-3 px-4 bg-white text-gray-600 font-bold text-sm cursor-pointer">Rejected</button>
+        </div>
+
+        
+
+        
+    </main>
+
+    <script src="scripts/script.js"></script>
 </body>
 </html>
