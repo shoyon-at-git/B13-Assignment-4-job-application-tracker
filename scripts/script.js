@@ -131,9 +131,9 @@ function renderInterviewList(){
     filteredSection.innerHTML = "";
     for(let interview of interviewList){
         let div = document.createElement("div");
-        div.className = "card border mb-4 bg-white flex justify-between rounded-md";
+        div.className = "card  mb-4 bg-white flex justify-between rounded-md";
         div.innerHTML = `
-            <div class="card border w-full bg-white p-6 flex justify-between rounded-md">
+            <div class="card hover:border w-full bg-white p-6 flex justify-between rounded-md">
                 <div class="card-left">
                     <h2 class="job-title text-lg font-bold mb-1">${interview.jobTitle}</h2>
                     <p class="job-role text-sm text-gray-500 mb-5">${interview.jobRole}</p>
