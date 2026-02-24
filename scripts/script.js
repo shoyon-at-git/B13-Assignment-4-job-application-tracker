@@ -180,7 +180,7 @@ function renderInterviewList(){
         div.className = "card  mb-4 bg-white flex justify-between rounded-md";
         div.innerHTML = `
             <div class="card hover:border w-full bg-white p-6 flex justify-between rounded-md">
-                <div class="card-left">
+                <div class="card-left w-[70%] sm:w-[90%]">
                     <h2 class="job-title text-lg font-bold mb-1">${interview.jobTitle}</h2>
                     <p class="job-role text-sm text-gray-500 mb-5">${interview.jobRole}</p>
                     <div class="mb-5">
@@ -213,7 +213,7 @@ function renderRejectedList(){
         div.className = "card mb-4 bg-white flex justify-between rounded-md";
         div.innerHTML = `
             <div class="card hover:border w-full bg-white p-6 flex justify-between rounded-md">
-                <div class="card-left">
+                <div class="card-left w-[70%] sm:w-[90%]">
                     <h2 class="job-title text-lg font-bold mb-1">${rejected.jobTitle}</h2>
                     <p class="job-role text-sm text-gray-500 mb-5">${rejected.jobRole}</p>
                     <div class="mb-5">
