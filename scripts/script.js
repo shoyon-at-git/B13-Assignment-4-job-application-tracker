@@ -150,6 +150,22 @@ mainContainer.addEventListener("click", function(event){
         calculateCount();
         
     }
+
+    if(event.target.closest(".delete-btn"))
+    {
+        const cardNode = event.target.closest(".card");
+        const jobTitle = cardNode.querySelector(".job-title").innerText;
+        interviewList = interviewList.filter(item => item.jobTitle !== jobTitle);
+        rejectedList = rejectedList.filter(item => item.jobTitle !== jobTitle);
+        cardNode.remove();
+        calculateCount();
+        updateFilterJobCount();
+        if(currentStatus === "interview-filter-btn") 
+            renderInterviewList();
+        else if(currentStatus === "rejected-filter-btn") 
+            renderRejectedList();
+
+    }
 });
 
 
@@ -216,5 +232,15 @@ function renderRejectedList(){
             </div>
         `
         filteredSection.appendChild(div);
+    }
+}
+
+function updateFilterJobCount() {
+    if(currentStatus === "interview-filter-btn") {
+        filterJobCount.innerText = `${interviewList.length} of ${cardContainer.children.length} jobs`;
+    } else if(currentStatus === "rejected-filter-btn") {
+        filterJobCount.innerText = `${rejectedList.length} of ${cardContainer.children.length} jobs`;
+    } else {
+        filterJobCount.innerText = `${cardContainer.children.length} jobs`;
     }
 }
