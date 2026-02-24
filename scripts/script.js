@@ -67,6 +67,7 @@ function toggleStyle(id){
 
 // showing divs accroding to choise
 mainContainer.addEventListener("click", function(event){
+    console.log(event.target);
     if(event.target.classList.contains("interview-btn")){
         const parentNode = event.target.parentNode.parentNode;
         const jobTitle = parentNode.querySelector(".job-title").innerText;
@@ -105,6 +106,7 @@ mainContainer.addEventListener("click", function(event){
     }   
 
     if(event.target.classList.contains("rejected-btn")){
+        // console.log("reject");
         const parentNode = event.target.parentNode.parentNode;
         const jobTitle = parentNode.querySelector(".job-title").innerText;
         const jobRole = parentNode.querySelector(".job-role").innerText;
@@ -137,8 +139,12 @@ mainContainer.addEventListener("click", function(event){
         if(currentStatus == "interview-filter-btn"){
             renderInterviewList();
         }
-        calculateCount();
         
+        //delete feature
+        // if(event.target.classList.contains("delete-img")){
+        //     console.log("delete-btn");
+        // }
+        calculateCount();
         
     }
 });
