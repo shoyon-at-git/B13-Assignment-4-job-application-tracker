@@ -2,12 +2,14 @@ console.log("script is ready to take action");
 
 let interviewList = [];
 let rejectedList = [];
+let currentStatus = "all-filter-btn";
 
 const filteredSection = document.getElementById("filtered-section");
 let total = document.getElementById("countTotal");
 let interviewCount = document.getElementById("countInterview");
 let rejectedCount = document.getElementById("countReject");
 let filterJobCount = document.getElementById("filtered-job-count");
+let innerFilter = document.getElementById("inner-filter");
 
 const cardContainer = document.getElementById("card-container");
 const mainContainer = document.getElementById("main");
@@ -36,6 +38,7 @@ function toggleStyle(id){
 
     const selected = document.getElementById(id);
     // console.log(selected)
+    currentStatus = id;
     selected.classList.add("bg-blue-600", "text-white");
     selected.classList.remove("text-gray-600", "bg-white");
 
@@ -43,11 +46,16 @@ function toggleStyle(id){
         cardContainer.classList.add("hidden");
         filteredSection.classList.remove("hidden");
         filterJobCount.innerText = `${interviewList.length} of ${cardContainer.children.length} jobs`;
+        renderInterviewList();
+        innerFilter.classList.toggle("hidden", interviewList.length !== 0);
     }
     if(id == "rejected-filter-btn"){
         cardContainer.classList.add("hidden");
         filteredSection.classList.remove("hidden");
         filterJobCount.innerText = `${rejectedList.length} of ${cardContainer.children.length} jobs`;
+        renderRejectedList();
+        innerFilter.classList.toggle("hidden", interviewList.length !== 0);
+
     }
     if(id == "all-filter-btn"){
         cardContainer.classList.remove("hidden");
@@ -88,6 +96,10 @@ mainContainer.addEventListener("click", function(event){
         if(!existingJob){
             interviewList.push(cardDetails);
         }
+        rejectedList = rejectedList.filter(item => item.jobTitle != cardDetails.jobTitle);
+        if(currentStatus == "rejected-filter-btn"){
+            renderRejectedList();
+        }
         calculateCount();
         renderInterviewList();
     }   
@@ -121,14 +133,22 @@ mainContainer.addEventListener("click", function(event){
         if(!existingJob){
             rejectedList.push(cardDetails);
         }
+        interviewList = interviewList.filter(item => item.jobTitle != cardDetails.jobTitle);
+        if(currentStatus == "interview-filter-btn"){
+            renderInterviewList();
+        }
         calculateCount();
-        renderRejectedList();
+        
+        
     }
 });
 
 
 function renderInterviewList(){
     filteredSection.innerHTML = "";
+    if (interviewList.length === 0) {
+        filteredSection.appendChild(innerFilter);
+    }
     for(let interview of interviewList){
         let div = document.createElement("div");
         div.className = "card  mb-4 bg-white flex justify-between rounded-md";
@@ -158,11 +178,14 @@ function renderInterviewList(){
 
 function renderRejectedList(){
     filteredSection.innerHTML = "";
+    if (rejectedList.length === 0) {
+        filteredSection.appendChild(innerFilter);
+    }
     for(let rejected of rejectedList){
         let div = document.createElement("div");
-        div.className = "card border mb-4 bg-white flex justify-between rounded-md";
+        div.className = "card mb-4 bg-white flex justify-between rounded-md";
         div.innerHTML = `
-            <div class="card border w-full bg-white p-6 flex justify-between rounded-md">
+            <div class="card hover:border w-full bg-white p-6 flex justify-between rounded-md">
                 <div class="card-left">
                     <h2 class="job-title text-lg font-bold mb-1">${rejected.jobTitle}</h2>
                     <p class="job-role text-sm text-gray-500 mb-5">${rejected.jobRole}</p>
