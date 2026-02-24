@@ -54,7 +54,7 @@ function toggleStyle(id){
         filteredSection.classList.remove("hidden");
         filterJobCount.innerText = `${rejectedList.length} of ${cardContainer.children.length} jobs`;
         renderRejectedList();
-        innerFilter.classList.toggle("hidden", interviewList.length !== 0);
+        innerFilter.classList.toggle("hidden", rejectedList.length !== 0);
 
     }
     if(id == "all-filter-btn"){
@@ -98,11 +98,14 @@ mainContainer.addEventListener("click", function(event){
             interviewList.push(cardDetails);
         }
         rejectedList = rejectedList.filter(item => item.jobTitle != cardDetails.jobTitle);
+        calculateCount();
+
         if(currentStatus == "rejected-filter-btn"){
             renderRejectedList();
         }
-        calculateCount();
-        renderInterviewList();
+        else if(currentStatus == "interview-filter-btn"){
+            renderInterviewList();
+        }
     }   
 
     if(event.target.classList.contains("rejected-btn")){
@@ -136,14 +139,14 @@ mainContainer.addEventListener("click", function(event){
             rejectedList.push(cardDetails);
         }
         interviewList = interviewList.filter(item => item.jobTitle != cardDetails.jobTitle);
-        if(currentStatus == "interview-filter-btn"){
+        calculateCount();
+
+        if(currentStatus === "interview-filter-btn"){
             renderInterviewList();
+        } 
+        else if(currentStatus === "rejected-filter-btn"){
+            renderRejectedList();
         }
-        
-        //delete feature
-        // if(event.target.classList.contains("delete-img")){
-        //     console.log("delete-btn");
-        // }
         calculateCount();
         
     }
@@ -153,6 +156,7 @@ mainContainer.addEventListener("click", function(event){
 function renderInterviewList(){
     filteredSection.innerHTML = "";
     if (interviewList.length === 0) {
+        innerFilter.classList.remove("hidden");
         filteredSection.appendChild(innerFilter);
     }
     for(let interview of interviewList){
@@ -185,6 +189,7 @@ function renderInterviewList(){
 function renderRejectedList(){
     filteredSection.innerHTML = "";
     if (rejectedList.length === 0) {
+        innerFilter.classList.remove("hidden");
         filteredSection.appendChild(innerFilter);
     }
     for(let rejected of rejectedList){
